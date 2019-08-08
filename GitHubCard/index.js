@@ -6,11 +6,6 @@
 // githubRequest.then(response => {
 //   console.log(response);
 // });
-// let githubRequest = axios.get('https://api.github.com/users/codenamerockey');
-
-// githubRequest.then(response => {
-//   console.log(response);
-// });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -33,7 +28,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -73,13 +74,13 @@ function gitHubProfile(obj) {
   //creates h3 username heading
   let usernameHeading = document.createElement('h3');
   usernameHeading.classList.add('name');
-  usernameHeading.textContent = `Name: ${obj.name}`;
+  usernameHeading.textContent = `${obj.name}`;
   cardInfo.appendChild(usernameHeading);
 
   //creates username p element
   let username = document.createElement('p');
   username.classList.add('username');
-  username.textContent = `Username: ${obj.login}`;
+  username.textContent = `${obj.login}`;
   cardInfo.appendChild(username);
   //creates location p element
   let location = document.createElement('p');
@@ -110,7 +111,34 @@ function gitHubProfile(obj) {
   let gitBio = document.createElement('p');
   gitBio.textContent = `Bio: ${obj.bio}`;
   cardInfo.appendChild(gitBio);
+
+  return divCard;
 }
+
+//Creating a handle to the div with the class of cards inside html.
+let githubCard = document.querySelector('.cards');
+
+// GitHub API Request
+let githubRequest = axios.get('https://api.github.com/users/codenamerockey');
+
+// let githubFollowers = axios.get(
+//   'https://api.github.com/users/codenamerockey/followers'
+// );
+
+githubRequest.then(response => {
+  githubCard.appendChild(gitHubProfile(response.data));
+});
+
+followersArray.forEach(user => {
+  githubRequest = axios
+    .get(`https://api.github.com/users/${user}`)
+    .then(response => {
+      // console.log(response);
+      githubCard.appendChild(gitHubProfile(response.data));
+    });
+
+  // console.log(githubRequest);
+});
 
 /* List of LS Instructors Github username's: 
   tetondan
