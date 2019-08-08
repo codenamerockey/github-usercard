@@ -3,6 +3,15 @@
            https://api.github.com/users/<your name>
 */
 
+// githubRequest.then(response => {
+//   console.log(response);
+// });
+// let githubRequest = axios.get('https://api.github.com/users/codenamerockey');
+
+// githubRequest.then(response => {
+//   console.log(response);
+// });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -45,6 +54,63 @@ const followersArray = [];
 </div>
 
 */
+
+function gitHubProfile(obj) {
+  //creates div container for card
+  let divCard = document.createElement('div');
+  divCard.classList.add('card');
+
+  //creates img element
+  let profileImg = document.createElement('img');
+  profileImg.src = `${obj.avatar_url}`;
+  divCard.appendChild(profileImg);
+
+  //creates card-info div
+  let cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  divCard.appendChild(cardInfo);
+
+  //creates h3 username heading
+  let usernameHeading = document.createElement('h3');
+  usernameHeading.classList.add('name');
+  usernameHeading.textContent = `Name: ${obj.name}`;
+  cardInfo.appendChild(usernameHeading);
+
+  //creates username p element
+  let username = document.createElement('p');
+  username.classList.add('username');
+  username.textContent = `Username: ${obj.login}`;
+  cardInfo.appendChild(username);
+  //creates location p element
+  let location = document.createElement('p');
+  location.textContent = `Location: ${obj.location}`;
+  cardInfo.appendChild(location);
+  //creates profile p element
+  let profile = document.createElement('p');
+  profile.textContent = 'Profile:';
+  cardInfo.appendChild(profile);
+
+  //link nested inside profile paragraph
+  let nestedLink = document.createElement('a');
+  nestedLink.setAttribute('href', `${obj.html_url}`);
+  nestedLink.textContent = `${obj.html_url}`;
+  profile.appendChild(nestedLink);
+
+  // creates followers p element
+  let gitFollowers = document.createElement('p');
+  gitFollowers.textContent = `Followers: ${obj.followers}`;
+  cardInfo.appendChild(gitFollowers);
+
+  // creates following p element
+  let gitFollowing = document.createElement('p');
+  gitFollowing.textContent = `Following: ${obj.following}`;
+  cardInfo.appendChild(gitFollowing);
+
+  //creates the bio p element
+  let gitBio = document.createElement('p');
+  gitBio.textContent = `Bio: ${obj.bio}`;
+  cardInfo.appendChild(gitBio);
+}
 
 /* List of LS Instructors Github username's: 
   tetondan
