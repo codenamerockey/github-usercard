@@ -82,10 +82,12 @@ function gitHubProfile(obj) {
   username.classList.add('username');
   username.textContent = `${obj.login}`;
   cardInfo.appendChild(username);
+
   //creates location p element
   let location = document.createElement('p');
   location.textContent = `Location: ${obj.location}`;
   cardInfo.appendChild(location);
+
   //creates profile p element
   let profile = document.createElement('p');
   profile.textContent = 'Profile:';
@@ -125,9 +127,13 @@ let githubRequest = axios.get('https://api.github.com/users/codenamerockey');
 //   'https://api.github.com/users/codenamerockey/followers'
 // );
 
-githubRequest.then(response => {
-  githubCard.appendChild(gitHubProfile(response.data));
-});
+githubRequest
+  .then(response => {
+    githubCard.appendChild(gitHubProfile(response.data));
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 followersArray.forEach(user => {
   githubRequest = axios
@@ -135,6 +141,9 @@ followersArray.forEach(user => {
     .then(response => {
       // console.log(response);
       githubCard.appendChild(gitHubProfile(response.data));
+    })
+    .catch(err => {
+      console.log(err);
     });
 
   // console.log(githubRequest);
